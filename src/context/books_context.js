@@ -29,6 +29,15 @@ export const BooksProvider = ({ children }) => {
     dispatch({ type: SIDEBAR_CLOSE });
   };
 
+  const fetchBooks = async (url) => {
+    const response = axios.get(url);
+    console.log(response);
+  };
+
+  useEffect(() => {
+    fetchBooks(url);
+  }, []);
+
   return (
     <BooksContext.Provider value={{ ...state, openSideBar, closeSideBar }}>
       {children}

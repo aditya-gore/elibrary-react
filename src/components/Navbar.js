@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
+import lib from "../assets/lib.png";
+import download from "../assets/download.png";
 import { FaBars } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { links } from "../utils/constants";
@@ -72,6 +74,7 @@ const NavContainer = styled.nav`
   .cart-btn-wrapper {
     display: none;
   }
+  
   @media (min-width: 992px) {
     .nav-toggle {
       display: none;
@@ -101,6 +104,18 @@ const NavContainer = styled.nav`
     .cart-btn-wrapper {
       display: grid;
     }
+    .auth-btn {
+      display: flex;
+      align-items: center;
+      background: transparent;
+      border-color: transparent;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--clr-grey-1);
+      letter-spacing: var(--spacing);
+      svg {
+        margin-left: 5px;
+      }
   }
 `;
 

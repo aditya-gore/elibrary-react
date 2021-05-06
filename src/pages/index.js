@@ -9,7 +9,6 @@ import AddBook from "./AddBookPage";
 import AddReader from "./AddReaderPage";
 import Wishlist from "./WishlistPage";
 import Profile from "./ProfilePage";
-import About from "./AboutPage";
 import Error from "./ErrorPage";
 import PrivateRoute from "./PrivateRoute";
 
@@ -25,7 +24,6 @@ export {
   AddReader,
   Wishlist,
   Profile,
-  About,
   Error,
   PrivateRoute,
 };

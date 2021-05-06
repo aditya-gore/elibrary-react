@@ -3,7 +3,14 @@ import styled from "styled-components";
 import { Filters, ProductList, Sort, PageHero } from "../components";
 
 const ReadersPage = () => {
-  return <h4>Readers page</h4>;
+  return (
+    <main>
+      <PageHero title="readers" />
+      <Wrapper className="page">
+        <h1>Readers Page</h1>
+      </Wrapper>
+    </main>
+  );
 };
 
 const Wrapper = styled.div`
