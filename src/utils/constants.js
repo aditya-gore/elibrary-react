@@ -40,3 +40,5 @@ export const services = [
 export const books_url = "http://localhost:8000/api/list";
 
 export const single_book_url = `http://localhost:8000/api/getBook/`;
+
+export const base_url = "http://localhost:8000/";

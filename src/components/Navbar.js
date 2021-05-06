@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
-import lib from "../assets/lib.png";
-import download from "../assets/download.png";
+
 import { FaBars } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { links } from "../utils/constants";

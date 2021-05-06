@@ -14,7 +14,6 @@ import {
   AddReader,
   Wishlist,
   Profile,
-  About,
   Error,
   PrivateRoute,
 } from "./pages";
@@ -36,9 +35,7 @@ function App() {
           <Readers />
         </Route>
         <Route exact path="/readers/:id" children={<SingleReader />} />
-        <Route exact path="/about">
-          <About />
-        </Route>
+
         <Route exact path="/addbook">
           <AddBook />
         </Route>

@@ -5,16 +5,20 @@ import { books_url as url } from "../utils/constants";
 import {
   SIDEBAR_OPEN,
   SIDEBAR_CLOSE,
-  GET_PRODUCTS_BEGIN,
-  GET_PRODUCTS_SUCCESS,
-  GET_PRODUCTS_ERROR,
-  GET_SINGLE_PRODUCT_BEGIN,
-  GET_SINGLE_PRODUCT_SUCCESS,
-  GET_SINGLE_PRODUCT_ERROR,
+  GET_BOOKS_BEGIN,
+  GET_BOOKS_SUCCESS,
+  GET_BOOKS_ERROR,
+  GET_SINGLE_BOOK_BEGIN,
+  GET_SINGLE_BOOK_SUCCESS,
+  GET_SINGLE_BOOK_ERROR,
 } from "../actions";
 
 const initialState = {
   isSideBarOpen: false,
+  books_loading: false,
+  books_error: false,
+  books: [],
+  featured_books: [],
 };
 
 const BooksContext = React.createContext();
@@ -30,8 +34,14 @@ export const BooksProvider = ({ children }) => {
   };
 
   const fetchBooks = async (url) => {
-    const response = axios.get(url);
-    console.log(response);
+    dispatch({ type: GET_BOOKS_BEGIN });
+    try {
+      const response = await axios.get(url);
+      const books = response.data;
+      dispatch({ type: GET_BOOKS_SUCCESS, payload: books });
+    } catch (error) {
+      dispatch({ type: GET_BOOKS_ERROR });
+    }
   };
 
   useEffect(() => {
