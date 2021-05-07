@@ -25,7 +25,7 @@ const FeaturedBooks = () => {
         <div className="underline"></div>
       </div>
       <div className="section-center featured">
-        {featured.slice(0, 6).map((book) => {
+        {featured.slice(0, 3).map((book) => {
           return <Book key={book.id} {...book} />;
         })}
       </div>
@@ -40,7 +40,7 @@ const Wrapper = styled.section`
     display: grid;
     gap: 2.5rem;
     img {
-      height: 225px;
+      height: 30rem;
     }
   }
   .btn {

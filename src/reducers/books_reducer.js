@@ -34,6 +34,27 @@ const books_reducer = (state, action) => {
   if (action.type === GET_BOOKS_ERROR) {
     return { ...state, books_loading: false, books_error: true };
   }
+  if (action.type === GET_SINGLE_BOOK_BEGIN) {
+    return {
+      ...state,
+      single_book_loading: true,
+      single_book_error: false,
+    };
+  }
+  if (action.type === GET_SINGLE_BOOK_SUCCESS) {
+    return {
+      ...state,
+      single_book_loading: false,
+      single_book: action.payload,
+    };
+  }
+  if (action.type === GET_SINGLE_BOOK_ERROR) {
+    return {
+      ...state,
+      single_book_loading: false,
+      single_book_error: true,
+    };
+  }
 
   return state;
   throw new Error(`No Matching "${action.type}" - action type`);

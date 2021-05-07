@@ -30,9 +30,8 @@ const Wrapper = styled.article`
   }
   img {
     width: 100%;
-    height:400%
     display: block;
-    object-fit: scale-down;
+    object-fit: fill;
     border-radius: var(--radius);
     transition: var(--transition);
   }

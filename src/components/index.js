@@ -9,6 +9,7 @@ import Hero from "./Hero";
 import Services from "./Services";
 import FeaturedBooks from "./FeaturedBooks";
 import Filters from "./Filters";
+import BookImages from "./BookImages";
 
 import Sort from "./Sort";
 
@@ -25,4 +26,5 @@ export {
   Hero,
   FeaturedBooks,
   Services,
+  BookImages,
 };

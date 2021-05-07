@@ -19,6 +19,9 @@ const initialState = {
   books_error: false,
   books: [],
   featured_books: [],
+  single_product_loading: false,
+  single_product_error: false,
+  single_product: {},
 };
 
 const BooksContext = React.createContext();
@@ -44,12 +47,25 @@ export const BooksProvider = ({ children }) => {
     }
   };
 
+  const fetchSingleBook = async (url) => {
+    dispatch({ type: GET_SINGLE_BOOK_BEGIN });
+    try {
+      const response = await axios.get(url);
+      const singleBook = response.data;
+      dispatch({ type: GET_SINGLE_BOOK_SUCCESS, payload: singleBook });
+    } catch (error) {
+      dispatch({ type: GET_SINGLE_BOOK_ERROR });
+    }
+  };
+
   useEffect(() => {
     fetchBooks(url);
   }, []);
 
   return (
-    <BooksContext.Provider value={{ ...state, openSideBar, closeSideBar }}>
+    <BooksContext.Provider
+      value={{ ...state, openSideBar, closeSideBar, fetchSingleBook }}
+    >
       {children}
     </BooksContext.Provider>
   );

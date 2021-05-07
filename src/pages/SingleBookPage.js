@@ -2,24 +2,95 @@ import React, { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useBooksContext } from "../context/books_context";
 import { single_book_url as url } from "../utils/constants";
-import { formatPrice } from "../utils/helpers";
-import {
-  Loading,
-  Error,
-  ProductImages,
-  AddToCart,
-  Stars,
-  PageHero,
-} from "../components";
+import { getGenre } from "../utils/helpers";
+import { Loading, Error, BookImages, PageHero } from "../components";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const SingleBookPage = () => {
-  return <h4>single book page</h4>;
+  const { id } = useParams();
+  const history = useHistory();
+
+  const {
+    single_book_loading: loading,
+    single_book_error: error,
+    single_book,
+    fetchSingleBook,
+  } = useBooksContext();
+
+  useEffect(() => {
+    fetchSingleBook(`${url}${id}`);
+  }, [id]);
+
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        history.push("/");
+      }, 3000);
+    }
+  }, [error]);
+
+  if (loading) {
+    return <Loading />;
+  }
+  if (error) {
+    return <Error />;
+  }
+  while (single_book === undefined) {
+    return <Loading />;
+  }
+  const {
+    title,
+    author,
+    description,
+    genre_id,
+    numberInStock,
+    image,
+  } = single_book;
+
+  console.log(title);
+  return (
+    <Wrapper>
+      <PageHero name={title} book />
+      <div className="section section-center page">
+        <Link to="/books" className="btn">
+          back to books
+        </Link>
+        <div className="product-center">
+          <BookImages image={image} />
+          <section className="content">
+            <h2>{title}</h2>
+            <br />
+
+            <p className="info">
+              <span>Description : </span>
+              {description}
+            </p>
+            <p className="info">
+              <span>Author : </span>
+              {author}
+            </p>
+            <p className="info">
+              <span>Genre : </span>
+              {getGenre(genre_id)}
+            </p>
+            <p className="info">
+              <span>Available : </span>
+              {numberInStock > 0
+                ? `${numberInStock} left in stock`
+                : "out of stock"}
+            </p>
+
+            <hr />
+          </section>
+        </div>
+      </div>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.main`
-  .book-center {
+  .product-center {
     display: grid;
     gap: 4rem;
     margin-top: 2rem;
@@ -42,7 +113,7 @@ const Wrapper = styled.main`
   }
 
   @media (min-width: 992px) {
-    .book-center {
+    .product-center {
       grid-template-columns: 1fr 1fr;
       align-items: center;
     }
@@ -51,5 +122,4 @@ const Wrapper = styled.main`
     }
   }
 `;
-
 export default SingleBookPage;
