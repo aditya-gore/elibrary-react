@@ -3,7 +3,13 @@ import { useParams, useHistory } from "react-router-dom";
 import { useBooksContext } from "../context/books_context";
 import { single_book_url as url } from "../utils/constants";
 import { getGenre } from "../utils/helpers";
-import { Loading, Error, BookImages, PageHero } from "../components";
+import {
+  Loading,
+  Error,
+  BookImages,
+  PageHero,
+  BookOperations,
+} from "../components";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -82,6 +88,7 @@ const SingleBookPage = () => {
             </p>
 
             <hr />
+            <BookOperations book={single_book} />
           </section>
         </div>
       </div>

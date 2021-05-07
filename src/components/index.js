@@ -10,6 +10,7 @@ import Services from "./Services";
 import FeaturedBooks from "./FeaturedBooks";
 import Filters from "./Filters";
 import BookImages from "./BookImages";
+import BookOperations from "./BookOperations";
 
 import Sort from "./Sort";
 
@@ -27,4 +28,5 @@ export {
   FeaturedBooks,
   Services,
   BookImages,
+  BookOperations,
 };
