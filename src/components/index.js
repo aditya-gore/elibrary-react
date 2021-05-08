@@ -11,6 +11,7 @@ import FeaturedBooks from "./FeaturedBooks";
 import Filters from "./Filters";
 import BookImages from "./BookImages";
 import BookOperations from "./BookOperations";
+import BookList from "./BookList";
 
 import Sort from "./Sort";
 
@@ -29,4 +30,5 @@ export {
   Services,
   BookImages,
   BookOperations,
+  BookList,
 };

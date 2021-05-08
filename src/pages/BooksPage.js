@@ -1,13 +1,19 @@
 import React from "react";
 import styled from "styled-components";
-import { Filters, ProductList, Sort, PageHero } from "../components";
+import { Filters, BookList, Sort, PageHero } from "../components";
 
 const BooksPage = () => {
   return (
     <main>
       <PageHero title="books" />
       <Wrapper className="page">
-        <h1>Books Page</h1>
+        <div className="section-center books">
+          <Filters />
+          <div>
+            <Sort />
+            <BookList />
+          </div>
+        </div>
       </Wrapper>
     </main>
   );
