@@ -14,10 +14,10 @@ const BookImages = ({ image = "" }) => {
 
 const Wrapper = styled.section`
   .main {
-    height: 500px;
+    height: 600px;
   }
   img {
-    width: 100%;
+    width: 70%;
     display: block;
     border-radius: var(--radius);
     object-fit: scale;

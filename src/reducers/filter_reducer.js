@@ -1,5 +1,5 @@
 import {
-  LOAD_PRODUCTS,
+  LOAD_BOOKS,
   SET_LISTVIEW,
   SET_GRIDVIEW,
   UPDATE_SORT,
@@ -7,11 +7,17 @@ import {
   UPDATE_FILTERS,
   FILTER_PRODUCTS,
   CLEAR_FILTERS,
-} from '../actions'
+} from "../actions";
 
 const filter_reducer = (state, action) => {
-  return state
-  throw new Error(`No Matching "${action.type}" - action type`)
-}
+  if (action.type === LOAD_BOOKS) {
+    return {
+      ...state,
+      all_books: [...action.payload],
+      filtered_books: [...action.payload],
+    };
+  }
+  throw new Error(`No Matching "${action.type}" - action type`);
+};
 
-export default filter_reducer
+export default filter_reducer;

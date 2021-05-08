@@ -9,7 +9,9 @@ import { UserProvider } from "./context/user_context";
 
 ReactDOM.render(
   <BooksProvider>
-    <App />
+    <FilterProvider>
+      <App />
+    </FilterProvider>
   </BooksProvider>,
   document.getElementById("root")
 );
