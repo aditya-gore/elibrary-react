@@ -48,6 +48,13 @@ const Wrapper = styled.section`
     img {
       height: 325px;
     }
+    @media (min-width: 1200px) {
+        .products-container {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        img {
+          height: 400px;
+        }
   }
 `;
 

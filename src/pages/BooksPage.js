@@ -5,7 +5,7 @@ import { Filters, BookList, Sort, PageHero } from "../components";
 const BooksPage = () => {
   return (
     <main>
-      <PageHero title="books" />
+      <PageHero name="books" />
       <Wrapper className="page">
         <div className="section-center books">
           <Filters />

@@ -1,9 +1,29 @@
 import React from "react";
 import styled from "styled-components";
-import { formatPrice } from "../utils/helpers";
+import { base_url as url } from "../utils/constants";
+
 import { Link } from "react-router-dom";
-const ListView = () => {
-  return <h4>list view</h4>;
+const ListView = ({ books }) => {
+  return (
+    <Wrapper>
+      {books.map((book) => {
+        const { id, image, title, author, description } = book;
+        return (
+          <article key={id}>
+            <img src={url + image} alt={title} />
+            <div>
+              <h4>{title}</h4>
+              <h5 className="price">{author}</h5>
+              <p>{description.substring(0, 150)}...</p>
+              <Link to={`/books/${id}`} className="btn">
+                Details
+              </Link>
+            </div>
+          </article>
+        );
+      })}
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.section`
@@ -13,9 +33,9 @@ const Wrapper = styled.section`
   img {
     width: 100%;
     display: block;
-    width: 300px;
-    height: 200px;
-    object-fit: cover;
+    width: 120px;
+    height: 80%;
+    object-fit: fit;
     border-radius: var(--radius);
     margin-bottom: 1rem;
   }

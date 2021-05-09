@@ -47,7 +47,7 @@ const Wrapper = styled.section`
   }
   @media (min-width: 992px) {
     .main {
-      height: 600px;
+      height: 500px;
     }
     .gallery {
       img {
