@@ -7,13 +7,14 @@ const ListView = ({ books }) => {
   return (
     <Wrapper>
       {books.map((book) => {
-        const { id, image, title, author, description } = book;
+        const { id, image, title, author, description, numberInStock } = book;
         return (
           <article key={id}>
             <img src={url + image} alt={title} />
             <div>
               <h4>{title}</h4>
               <h5 className="price">{author}</h5>
+              <h6>In stock - {numberInStock}</h6>
               <p>{description.substring(0, 150)}...</p>
               <Link to={`/books/${id}`} className="btn">
                 Details
@@ -41,6 +42,10 @@ const Wrapper = styled.section`
   }
   h4 {
     margin-bottom: 0.5rem;
+  }
+  h6 {
+    color: var(--clr-grey-2);
+    margin-bottom: 0.75rem;
   }
   .price {
     color: var(--clr-primary-6);

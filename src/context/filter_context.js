@@ -5,9 +5,9 @@ import {
   SET_GRIDVIEW,
   SET_LISTVIEW,
   UPDATE_SORT,
-  SORT_PRODUCTS,
+  SORT_BOOKS,
   UPDATE_FILTERS,
-  FILTER_PRODUCTS,
+  FILTER_BOOKS,
   CLEAR_FILTERS,
 } from "../actions";
 import { useBooksContext } from "./books_context";
@@ -16,6 +16,7 @@ const initialState = {
   filtered_books: [],
   all_books: [],
   grid_view: true,
+  sort: "title-a",
 };
 
 const FilterContext = React.createContext();
@@ -28,6 +29,10 @@ export const FilterProvider = ({ children }) => {
     dispatch({ type: LOAD_BOOKS, payload: books });
   }, [books]);
 
+  useEffect(() => {
+    dispatch({ type: SORT_BOOKS });
+  }, [books, state.sort]);
+
   const setGridView = () => {
     dispatch({ type: SET_GRIDVIEW });
   };
@@ -36,8 +41,15 @@ export const FilterProvider = ({ children }) => {
     dispatch({ type: SET_LISTVIEW });
   };
 
+  const updateSort = (e) => {
+    const value = e.target.value;
+    dispatch({ type: UPDATE_SORT, payload: value });
+  };
+
   return (
-    <FilterContext.Provider value={{ ...state, setGridView, setListView }}>
+    <FilterContext.Provider
+      value={{ ...state, setGridView, setListView, updateSort }}
+    >
       {children}
     </FilterContext.Provider>
   );
