@@ -1,10 +1,3 @@
-export const formatPrice = (number) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(number / 100);
-};
-
 export const getGenre = (genre_id) => {
   if (genre_id === 1) return "Technology";
   if (genre_id === 2) return "Fiction";
@@ -22,4 +15,15 @@ export const getGenreID = (genre) => {
 export const getUniqueValues = (data, type) => {
   let unique = data.map((item) => item[type]);
   return ["all", ...new Set(unique)];
+};
+
+export const paginate = (books) => {
+  const itemsPerPage = 3;
+  const pages = Math.ceil(books.length / itemsPerPage);
+
+  const newBooks = Array.from({ length: pages }, (_, index) => {
+    const start = index * itemsPerPage;
+    return books.slice(start, start + itemsPerPage);
+  });
+  return newBooks;
 };

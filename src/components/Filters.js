@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useFilterContext } from "../context/filter_context";
-import { getUniqueValues, getGenre, getGenreID } from "../utils/helpers";
+import { getUniqueValues, getGenre } from "../utils/helpers";
 import { FaCheck } from "react-icons/fa";
 
 const Filters = () => {

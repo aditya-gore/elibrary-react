@@ -1,12 +1,23 @@
-import React from "react";
-import styled from "styled-components";
-import { base_url as url } from "../utils/constants";
-
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { Pagination } from "@material-ui/lab";
+import { base_url as url } from "../utils/constants";
+import usePagination from "../utils/usePagination";
+
 const ListView = ({ books }) => {
+  let [page, setPage] = useState(1);
+  const pageSize = 3;
+  const count = Math.ceil(books.length / pageSize);
+  const _books = usePagination(books, pageSize);
+
+  const handleChange = (e, p) => {
+    setPage(p);
+    _books.jump(p);
+  };
   return (
     <Wrapper>
-      {books.map((book) => {
+      {_books.currentData().map((book) => {
         const { id, image, title, author, description, numberInStock } = book;
         return (
           <article key={id}>
@@ -23,6 +34,16 @@ const ListView = ({ books }) => {
           </article>
         );
       })}
+      {/* pagination... */}
+      <Pagination
+        count={count}
+        size="large"
+        page={page}
+        variant="outlined"
+        shape="rounded"
+        onChange={handleChange}
+        className="pagination"
+      />
     </Wrapper>
   );
 };
@@ -46,6 +67,9 @@ const Wrapper = styled.section`
   h6 {
     color: var(--clr-grey-2);
     margin-bottom: 0.75rem;
+  }
+  .pagination {
+    margin: 20px;
   }
   .price {
     color: var(--clr-primary-6);
