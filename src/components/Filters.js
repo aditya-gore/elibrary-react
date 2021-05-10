@@ -1,12 +1,69 @@
-import React from 'react'
-import styled from 'styled-components'
-import { useFilterContext } from '../context/filter_context'
-import { getUniqueValues, formatPrice } from '../utils/helpers'
-import { FaCheck } from 'react-icons/fa'
+import React from "react";
+import styled from "styled-components";
+import { useFilterContext } from "../context/filter_context";
+import { getUniqueValues, getGenre, getGenreID } from "../utils/helpers";
+import { FaCheck } from "react-icons/fa";
 
 const Filters = () => {
-  return <h4>filters</h4>
-}
+  const {
+    filters: { text, genres },
+    updateFilters,
+    clearFilters,
+    all_books,
+  } = useFilterContext();
+
+  const genresId = getUniqueValues(all_books, "genre_id");
+  const genreNames = [];
+  for (let id of genresId) {
+    genreNames.push(getGenre(id));
+  }
+
+  return (
+    <Wrapper>
+      <div className="content">
+        <form onSubmit={(e) => e.preventDefault()}>
+          {/* search input */}
+          <div className="form-control">
+            <input
+              type="text"
+              name="text"
+              placeholder="search..."
+              className="search-input"
+              value={text}
+              onChange={updateFilters}
+            />
+          </div>
+          {/* end search input */}
+          {/* genres */}
+          <div className="form-control">
+            <h5>genres</h5>
+            <div>
+              {genreNames.map((g, index) => {
+                return (
+                  <button
+                    key={index}
+                    onClick={updateFilters}
+                    name="genres"
+                    type="button"
+                    className={`${genres === g ? "active" : null}`}
+                  >
+                    {g}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+          {/* end of genres */}
+        </form>
+        {/* clear filters */}
+        <button type="button" className="clear-btn" onClick={clearFilters}>
+          Clear Filters
+        </button>
+        {/* end of clear filters */}
+      </div>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.section`
   .form-control {
@@ -105,6 +162,6 @@ const Wrapper = styled.section`
       top: 1rem;
     }
   }
-`
+`;
 
-export default Filters
+export default Filters;

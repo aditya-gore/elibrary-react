@@ -17,6 +17,10 @@ const initialState = {
   all_books: [],
   grid_view: true,
   sort: "title-a",
+  filters: {
+    text: "",
+    genres: "all",
+  },
 };
 
 const FilterContext = React.createContext();
@@ -30,8 +34,9 @@ export const FilterProvider = ({ children }) => {
   }, [books]);
 
   useEffect(() => {
+    dispatch({ type: FILTER_BOOKS });
     dispatch({ type: SORT_BOOKS });
-  }, [books, state.sort]);
+  }, [books, state.sort, state.filters]);
 
   const setGridView = () => {
     dispatch({ type: SET_GRIDVIEW });
@@ -46,9 +51,29 @@ export const FilterProvider = ({ children }) => {
     dispatch({ type: UPDATE_SORT, payload: value });
   };
 
+  const updateFilters = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+    if (name === "genres") {
+      value = e.target.textContent;
+    }
+    dispatch({ type: UPDATE_FILTERS, payload: { name, value } });
+  };
+
+  const clearFilters = () => {
+    dispatch({ type: CLEAR_FILTERS });
+  };
+
   return (
     <FilterContext.Provider
-      value={{ ...state, setGridView, setListView, updateSort }}
+      value={{
+        ...state,
+        setGridView,
+        setListView,
+        updateSort,
+        updateFilters,
+        clearFilters,
+      }}
     >
       {children}
     </FilterContext.Provider>
