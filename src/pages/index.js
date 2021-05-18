@@ -11,6 +11,10 @@ import Wishlist from "./WishlistPage";
 import Profile from "./ProfilePage";
 import Error from "./ErrorPage";
 import PrivateRoute from "./PrivateRoute";
+import EmailVerified from "./EmailVerified";
+import EmailAlreadyVerified from "./EmailAlreadyVerified";
+import ForgotPassword from "./ForgotPassword";
+import ResetPassword from "./ResetPassword";
 
 export {
   Home,
@@ -26,4 +30,8 @@ export {
   Profile,
   Error,
   PrivateRoute,
+  EmailVerified,
+  EmailAlreadyVerified,
+  ForgotPassword,
+  ResetPassword,
 };

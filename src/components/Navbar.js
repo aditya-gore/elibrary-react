@@ -5,12 +5,14 @@ import logo from "../assets/logo.png";
 import { FaBars } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { links } from "../utils/constants";
-import CartButtons from "./CartButtons";
+import UserButtons from "./UserButtons";
 import { useBooksContext } from "../context/books_context";
-import { useUserContext } from "../context/user_context";
+// import { useUserContext } from "../context/User/user_context";
 
-const Nav = () => {
+const Nav = ({ user, setLogin }) => {
   const { openSideBar } = useBooksContext();
+  const currentUser = user || false;
+
   return (
     <NavContainer>
       <div className="nav-center">
@@ -31,8 +33,20 @@ const Nav = () => {
               </li>
             );
           })}
+          {currentUser && (
+            <li>
+              <Link to="/profile">Profile</Link>
+            </li>
+          )}
+          {currentUser.isAdmin ? (
+            <li>
+              <Link to="/readers">Readers</Link>
+            </li>
+          ) : (
+            ""
+          )}
         </ul>
-        <CartButtons />
+        <UserButtons user={user} setLogin={() => setLogin(false)} />
       </div>
     </NavContainer>
   );

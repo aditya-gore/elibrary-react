@@ -5,11 +5,11 @@ import { useBooksContext } from "../context/books_context";
 import { FaTimes } from "react-icons/fa";
 import { links } from "../utils/constants";
 import styled from "styled-components";
-import CartButtons from "./CartButtons";
-import { useUserContext } from "../context/user_context";
+import UserButtons from "./UserButtons";
 
-const Sidebar = () => {
+const Sidebar = ({ user, setLogin }) => {
   const { isSideBarOpen, closeSideBar } = useBooksContext();
+  const currentUser = user || false;
 
   return (
     <SidebarContainer>
@@ -32,14 +32,41 @@ const Sidebar = () => {
               </li>
             );
           })}
-          <Link to="/profile" onClick={closeSideBar}>
-            Profile
-          </Link>
-          <Link to="/readers" onClick={closeSideBar}>
-            Readers
-          </Link>
+          {currentUser && (
+            <li>
+              <Link to="/profile" onClick={closeSideBar}>
+                Profile
+              </Link>
+            </li>
+          )}
+          {currentUser.isAdmin ? (
+            <li>
+              <Link to="/readers" onClick={closeSideBar}>
+                Readers
+              </Link>
+            </li>
+          ) : (
+            ""
+          )}
+
+          {/* <li>
+            <Link to="/readers" onClick={closeSideBar}>
+              Readers
+            </Link>
+          </li> */}
+          {/* {console.log(user)} */}
+          {/* {user && (
+            <Link to="/profile" onClick={closeSideBar}>
+              Profile
+            </Link>
+          )}
+          {user.isAdmin && (
+            <Link to="/readers" onClick={closeSideBar}>
+              Readers
+            </Link>
+          )} */}
         </ul>
-        <CartButtons />
+        <UserButtons user={user} setLogin={() => setLogin(false)} />
       </aside>
     </SidebarContainer>
   );

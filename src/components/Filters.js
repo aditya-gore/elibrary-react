@@ -3,8 +3,10 @@ import styled from "styled-components";
 import { useFilterContext } from "../context/filter_context";
 import { getUniqueValues, getGenre } from "../utils/helpers";
 import { FaCheck } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-const Filters = () => {
+const Filters = ({ user }) => {
+  const currentUser = user || false;
   const {
     filters: { text, genres },
     updateFilters,
@@ -34,6 +36,7 @@ const Filters = () => {
             />
           </div>
           {/* end search input */}
+
           {/* genres */}
           <div className="form-control">
             <h5>genres</h5>
@@ -56,10 +59,29 @@ const Filters = () => {
           {/* end of genres */}
         </form>
         {/* clear filters */}
-        <button type="button" className="clear-btn" onClick={clearFilters}>
-          Clear Filters
-        </button>
+        <div className="form-control">
+          <Link
+            to="#"
+            type="button"
+            className="clear-btn"
+            onClick={clearFilters}
+          >
+            Clear Filters
+          </Link>
+        </div>
         {/* end of clear filters */}
+        <hr />
+        {currentUser && console.log(user)}
+        {currentUser.isAdmin ? (
+          <div className="form-control">
+            <h5>admin only</h5>
+            <Link className="addBook-btn" to="/addBook">
+              Add Book
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </Wrapper>
   );
@@ -70,6 +92,7 @@ const Wrapper = styled.section`
     margin-bottom: 1.25rem;
     h5 {
       margin-bottom: 0.5rem;
+      margin-top: 0.5rem;
     }
   }
   .search-input {
@@ -152,6 +175,12 @@ const Wrapper = styled.section`
   }
   .clear-btn {
     background: var(--clr-red-dark);
+    color: var(--clr-white);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius);
+  }
+  .addBook-btn {
+    background: var(--clr-primary-6);
     color: var(--clr-white);
     padding: 0.25rem 0.5rem;
     border-radius: var(--radius);

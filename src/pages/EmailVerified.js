@@ -4,7 +4,7 @@ import { Link, Redirect } from "react-router-dom";
 import styled from "styled-components";
 import { PageHero } from "../components";
 
-const LoginPage = ({ setLogin }) => {
+const EmailVerified = ({ setLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
@@ -27,6 +27,7 @@ const LoginPage = ({ setLogin }) => {
 
       <Wrapper className="page">
         <form className="form" onSubmit={handleSubmit}>
+          <h1>Thankyou for verifying your email!</h1>
           <h1>Login</h1>
           <p>
             <label htmlFor="login">Email</label>
@@ -49,7 +50,7 @@ const LoginPage = ({ setLogin }) => {
             />
           </p>
           <div>
-            <Link to="/forgotPassword">Forgot Password?</Link>
+            <Link to="/forgot">Forgot Password?</Link>
           </div>
           <p>
             <button type="submit">Login</button>
@@ -191,4 +192,4 @@ const Wrapper = styled.section`
     background: #594642;
   }
 `;
-export default LoginPage;
+export default EmailVerified;

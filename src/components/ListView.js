@@ -7,7 +7,7 @@ import usePagination from "../utils/usePagination";
 
 const ListView = ({ books }) => {
   let [page, setPage] = useState(1);
-  const pageSize = 3;
+  const pageSize = 4;
   const count = Math.ceil(books.length / pageSize);
   const _books = usePagination(books, pageSize);
 

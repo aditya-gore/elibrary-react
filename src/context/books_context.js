@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useContext, useEffect, useReducer } from "react";
 import reducer from "../reducers/books_reducer";
 import { books_url as url } from "../utils/constants";
-import { paginate } from "../utils/helpers";
 import {
   SIDEBAR_OPEN,
   SIDEBAR_CLOSE,

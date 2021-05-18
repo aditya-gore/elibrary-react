@@ -6,7 +6,7 @@ import { Pagination } from "@material-ui/lab";
 
 const GridView = ({ books }) => {
   let [page, setPage] = useState(1);
-  const pageSize = 3;
+  const pageSize = 6;
   const count = Math.ceil(books.length / pageSize);
   const _books = usePagination(books, pageSize);
 

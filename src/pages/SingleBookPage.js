@@ -45,14 +45,8 @@ const SingleBookPage = () => {
   while (single_book === undefined) {
     return <Loading />;
   }
-  const {
-    title,
-    author,
-    description,
-    genre_id,
-    numberInStock,
-    image,
-  } = single_book;
+  const { title, author, description, genre_id, numberInStock, image } =
+    single_book;
 
   console.log(title);
   return (
@@ -111,7 +105,7 @@ const Wrapper = styled.main`
   }
   .info {
     text-transform: capitalize;
-    width: 300px;
+    width: 600px;
     display: grid;
     grid-template-columns: 125px 1fr;
     span {

@@ -1,59 +1,48 @@
-import axios from "axios";
 import React, { useState } from "react";
-import { Link, Redirect } from "react-router-dom";
 import styled from "styled-components";
 import { PageHero } from "../components";
+import axios from "axios";
+import { Redirect } from "react-router";
 
-const LoginPage = ({ setLogin }) => {
-  const [email, setEmail] = useState("");
+const ResetPassword = ({ match }) => {
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    await axios.post("login", {
-      email,
+    const token = match.params.token;
+    await axios.post("reset", {
+      token,
       password,
+      confirm_password: confirmPassword,
     });
     setRedirect(true);
-    setLogin();
   };
+
   if (redirect) {
-    return <Redirect to="/books" />;
+    return <Redirect to="/login" />;
   }
   return (
     <main>
-      <PageHero name="login" />
-
+      <PageHero name="reset password" />
       <Wrapper className="page">
-        <form className="form" onSubmit={handleSubmit}>
-          <h1>Login</h1>
-          <p>
-            <label htmlFor="login">Email</label>
-            <input
-              type="text"
-              name="login"
-              placeholder="Email"
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </p>
-          <p>
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              required
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </p>
-          <div>
-            <Link to="/forgotPassword">Forgot Password?</Link>
-          </div>
-          <p>
-            <button type="submit">Login</button>
-          </p>
+        <form className="form" onSubmit={submit}>
+          <h1>Enter a new Password</h1>
+          <input
+            type="password"
+            placeholder="password"
+            required
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <br />
+          <input
+            type="password"
+            placeholder="confirm password"
+            required
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          <button type="submit">Reset Password</button>
         </form>
       </Wrapper>
     </main>
@@ -191,4 +180,5 @@ const Wrapper = styled.section`
     background: #594642;
   }
 `;
-export default LoginPage;
+
+export default ResetPassword;

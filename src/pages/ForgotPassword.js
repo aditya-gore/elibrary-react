@@ -1,35 +1,51 @@
-import axios from "axios";
 import React, { useState } from "react";
-import { Link, Redirect } from "react-router-dom";
 import styled from "styled-components";
 import { PageHero } from "../components";
+import axios from "axios";
 
-const LoginPage = ({ setLogin }) => {
+const ForgotPassword = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [redirect, setRedirect] = useState(false);
-
-  const handleSubmit = async (e) => {
+  const [notify, setNotify] = useState({
+    show: false,
+    error: false,
+    message: "",
+  });
+  const submit = async (e) => {
     e.preventDefault();
-    await axios.post("login", {
-      email,
-      password,
-    });
-    setRedirect(true);
-    setLogin();
+    try {
+      await axios.post("forgot", { email });
+      setNotify({
+        show: true,
+        error: false,
+        message: "Email was sent!",
+      });
+    } catch (error) {
+      setNotify({
+        show: true,
+        error: true,
+        message: "Email not found!",
+      });
+    }
   };
-  if (redirect) {
-    return <Redirect to="/books" />;
+  let info;
+  if (notify.show) {
+    info = (
+      <div
+        className={notify.error ? "alert alert-danger" : "alert alert-success"}
+        role="alert"
+      >
+        {notify.message}
+      </div>
+    );
   }
   return (
     <main>
-      <PageHero name="login" />
-
+      <PageHero name="forgot password" />
       <Wrapper className="page">
-        <form className="form" onSubmit={handleSubmit}>
-          <h1>Login</h1>
+        <form className="form" onSubmit={submit}>
+          {info}
+          <h1>Enter your email...</h1>
           <p>
-            <label htmlFor="login">Email</label>
             <input
               type="text"
               name="login"
@@ -39,20 +55,7 @@ const LoginPage = ({ setLogin }) => {
             />
           </p>
           <p>
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              required
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </p>
-          <div>
-            <Link to="/forgotPassword">Forgot Password?</Link>
-          </div>
-          <p>
-            <button type="submit">Login</button>
+            <button type="submit">Send Email</button>
           </p>
         </form>
       </Wrapper>
@@ -191,4 +194,4 @@ const Wrapper = styled.section`
     background: #594642;
   }
 `;
-export default LoginPage;
+export default ForgotPassword;

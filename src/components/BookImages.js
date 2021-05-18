@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { base_url as url } from "../utils/constants";
 
 const BookImages = ({ image = "" }) => {
-  console.log(url + image);
   return (
     <Wrapper>
       <img src={url + image} alt="main image" className="main" />

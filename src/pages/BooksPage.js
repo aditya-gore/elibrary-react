@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import { Filters, BookList, Sort, PageHero } from "../components";
 
-const BooksPage = () => {
+const BooksPage = ({ user }) => {
   return (
     <main>
       <PageHero name="books" />
       <Wrapper className="page">
         <div className="section-center books">
-          <Filters />
+          <Filters user={user} />
           <div>
             <Sort />
             <BookList />

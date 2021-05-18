@@ -87,7 +87,7 @@ const RegisterPage = () => {
 const Wrapper = styled.section`
   .form {
     /* Size and position */
-    width: 300px;
+    width: 350px;
     margin: 60px auto 30px;
     padding: 10px;
     position: relative;
@@ -125,7 +125,7 @@ const Wrapper = styled.section`
 
     /* Font styles */
     font-family: "Raleway", "Lato", Arial, sans-serif;
-    color: #fff;
+    color: black;
     font-size: 13px;
   }
   .form input::-webkit-input-placeholder {
@@ -176,7 +176,7 @@ const Wrapper = styled.section`
     transition: all 0.3s ease-out;
 
     /* Font styles */
-    color: white;
+    color: black;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
     font-size: 16px;
     font-weight: bold;

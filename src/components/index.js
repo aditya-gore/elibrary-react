@@ -1,5 +1,5 @@
 import Navbar from "./Navbar";
-import CartButtons from "./CartButtons";
+import UserButtons from "./UserButtons";
 import Footer from "./Footer";
 import Sidebar from "./Sidebar";
 import PageHero from "./PageHero";
@@ -17,7 +17,7 @@ import Sort from "./Sort";
 
 export {
   Navbar,
-  CartButtons,
+  UserButtons,
   Footer,
   Sidebar,
   Loading,
