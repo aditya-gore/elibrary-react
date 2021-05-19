@@ -10,11 +10,11 @@ import {
 } from "../actions";
 
 const books_reducer = (state, action) => {
-  if (action.type == SIDEBAR_OPEN) {
+  if (action.type === SIDEBAR_OPEN) {
     return { ...state, isSideBarOpen: true };
   }
 
-  if (action.type == SIDEBAR_CLOSE) {
+  if (action.type === SIDEBAR_CLOSE) {
     return { ...state, isSideBarOpen: false };
   }
 
@@ -56,7 +56,7 @@ const books_reducer = (state, action) => {
     };
   }
 
-  return state;
+  // return state;
   throw new Error(`No Matching "${action.type}" - action type`);
 };
 

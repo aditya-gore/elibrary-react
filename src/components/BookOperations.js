@@ -15,17 +15,7 @@ const BookOperations = ({ book }) => {
   while (book === undefined) {
     return <Loading />;
   }
-  const { id, title, author, description, genre_id, numberInStock } = book;
-  let wishlist = false;
 
-  console.log(id, title, author, description, genre_id, numberInStock);
-
-  const addToWishlist = () => {
-    wishlist = true;
-  };
-  const removeFromWishlist = () => {
-    wishlist = false;
-  };
   return (
     <Wrapper>
       <div className="btn-container">
@@ -33,9 +23,9 @@ const BookOperations = ({ book }) => {
         <button className="heart">
           <FaRegHeart size={18} />
         </button>
-        <button className="btn">
+        <Link to="" type="button" className="btn">
           <FaEdit size={18} />
-        </button>
+        </Link>
         <button className="btn">
           <FaRegTrashAlt size={18} />
         </button>
@@ -45,6 +35,9 @@ const BookOperations = ({ book }) => {
 };
 
 const Wrapper = styled.section`
+  link {
+    text-align: center;
+  }
   .colors {
     margin-top: 2rem;
     display: grid;
@@ -90,6 +83,7 @@ const Wrapper = styled.section`
     margin-top: 1rem;
     margin-right: 1rem;
     width: 140px;
+    text-align: center;
   }
   .heart {
     margin-top: 1rem;

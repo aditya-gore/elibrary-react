@@ -48,15 +48,14 @@ const SingleBookPage = () => {
   const { title, author, description, genre_id, numberInStock, image } =
     single_book;
 
-  console.log(title);
   return (
-    <Wrapper>
+    <Wrapper className="page">
       <PageHero name={title} book />
-      <div className="section section-center page">
+      <div className="section section-center ">
         <Link to="/books" className="btn">
           back to books
         </Link>
-        <div className="product-center">
+        <div className="book-center">
           <BookImages image={image} />
           <section className="content">
             <h2>{title}</h2>
@@ -91,7 +90,7 @@ const SingleBookPage = () => {
 };
 
 const Wrapper = styled.main`
-  .product-center {
+  .book-center {
     display: grid;
     gap: 4rem;
     margin-top: 2rem;
@@ -114,7 +113,7 @@ const Wrapper = styled.main`
   }
 
   @media (min-width: 992px) {
-    .product-center {
+    .book-center {
       grid-template-columns: 1fr 1fr;
       align-items: center;
     }

@@ -12,7 +12,7 @@ const UserButtons = ({ user, setLogin }) => {
   const logout = async () => {
     await axios.post("logout");
     closeSideBar();
-    setLogin(false);
+    setLogin();
     history.push("/");
   };
   return (

@@ -1,13 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-const PageHero = ({ name, book }) => {
+const PageHero = ({ name, book, addBook = false }) => {
   return (
     <Wrapper>
       <div className="section-center">
         <h3>
           <Link to="/">Home</Link>
-          {book && <Link to="/books">/Books</Link>}/{name}
+          {(book && <Link to="/books">/Books</Link>) ||
+            (addBook && <Link to="/books">/Books</Link>)}
+          /{name}
         </h3>
       </div>
     </Wrapper>
@@ -17,7 +19,7 @@ const PageHero = ({ name, book }) => {
 const Wrapper = styled.section`
   background: var(--clr-primary-10);
   width: 100%;
-  min-height: 20vh;
+  min-height: 4vh;
   display: flex;
   align-items: center;
 
