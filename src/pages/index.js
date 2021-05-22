@@ -6,6 +6,7 @@ import SingleReader from "./SingleReaderPage";
 import Login from "./LoginPage";
 import Register from "./RegisterPage";
 import AddBook from "./AddBookPage";
+import EditBook from "./EditBookPage";
 import AddReader from "./AddReaderPage";
 import Wishlist from "./WishlistPage";
 import Profile from "./ProfilePage";
@@ -25,6 +26,7 @@ export {
   Login,
   Register,
   AddBook,
+  EditBook,
   AddReader,
   Wishlist,
   Profile,

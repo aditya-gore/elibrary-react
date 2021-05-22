@@ -21,6 +21,7 @@ import {
   EmailAlreadyVerified,
   ForgotPassword,
   ResetPassword,
+  EditBook,
 } from "./pages";
 
 function App() {
@@ -58,6 +59,9 @@ function App() {
 
         <Route exact path="/addbook">
           <AddBook />
+        </Route>
+        <Route exact path="/editbook">
+          <EditBook />
         </Route>
         <Route exact path="/addreader">
           <AddReader />

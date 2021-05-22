@@ -49,40 +49,42 @@ const SingleBookPage = () => {
     single_book;
 
   return (
-    <Wrapper className="page">
-      <PageHero name={title} book />
-      <div className="section section-center ">
-        <Link to="/books" className="btn">
-          back to books
-        </Link>
-        <div className="book-center">
-          <BookImages image={image} />
-          <section className="content">
-            <h2>{title}</h2>
-            <br />
+    <Wrapper>
+      <div className="page">
+        <PageHero name={title} book />
+        <div className="section section-center page">
+          <Link to="/books" className="btn">
+            back to books
+          </Link>
+          <div className="book-center">
+            <BookImages image={image} />
+            <section className="content">
+              <h2>{title}</h2>
+              <br />
 
-            <p className="info">
-              <span>Description : </span>
-              {description}
-            </p>
-            <p className="info">
-              <span>Author : </span>
-              {author}
-            </p>
-            <p className="info">
-              <span>Genre : </span>
-              {getGenre(genre_id)}
-            </p>
-            <p className="info">
-              <span>Available : </span>
-              {numberInStock > 0
-                ? `${numberInStock} left in stock`
-                : "out of stock"}
-            </p>
+              <p className="info">
+                <span>Description : </span>
+                {description}
+              </p>
+              <p className="info">
+                <span>Author : </span>
+                {author}
+              </p>
+              <p className="info">
+                <span>Genre : </span>
+                {getGenre(genre_id)}
+              </p>
+              <p className="info">
+                <span>Available : </span>
+                {numberInStock > 0
+                  ? `${numberInStock} left in stock`
+                  : "out of stock"}
+              </p>
 
-            <hr />
-            <BookOperations book={single_book} />
-          </section>
+              <hr />
+              <BookOperations book={single_book} />
+            </section>
+          </div>
         </div>
       </div>
     </Wrapper>

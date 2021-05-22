@@ -50,7 +50,7 @@ const AddBookPage = () => {
     setRedirect(true);
   };
   if (redirect) {
-    window.location.reload("/books");
+    window.location.replace("/books");
     // history.push("/books");
   }
   return (

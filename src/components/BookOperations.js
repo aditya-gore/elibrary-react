@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import { Link, useHistory } from "react-router-dom";
 import {
   FaCheck,
   FaEdit,
@@ -10,11 +11,24 @@ import {
   FaTrash,
 } from "react-icons/fa";
 import Loading from "./Loading";
+import axios from "axios";
 
 const BookOperations = ({ book }) => {
   while (book === undefined) {
     return <Loading />;
   }
+  const { id } = book;
+
+  const handleDelete = async (id) => {
+    const result = await axios.delete("delete/" + id);
+    if (result.status === 200) {
+      Swal.fire("Book deleted successfully!", "success").then(function () {
+        window.location.replace("/books");
+      });
+    } else {
+      Swal.fire("Book could not get deleted", "Error", "warning");
+    }
+  };
 
   return (
     <Wrapper>
@@ -23,10 +37,10 @@ const BookOperations = ({ book }) => {
         <button className="heart">
           <FaRegHeart size={18} />
         </button>
-        <Link to="" type="button" className="btn">
+        <Link to="/editBook" type="button" className="btn">
           <FaEdit size={18} />
         </Link>
-        <button className="btn">
+        <button className="btn" onClick={() => handleDelete(id)}>
           <FaRegTrashAlt size={18} />
         </button>
       </div>
