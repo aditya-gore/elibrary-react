@@ -108,6 +108,7 @@ const Wrapper = styled.main`
     text-transform: capitalize;
     width: 600px;
     display: grid;
+    white-space: pre-wrap;
     grid-template-columns: 125px 1fr;
     span {
       font-weight: 700;

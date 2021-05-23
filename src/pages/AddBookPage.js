@@ -51,7 +51,6 @@ const AddBookPage = () => {
   };
   if (redirect) {
     window.location.replace("/books");
-    // history.push("/books");
   }
   return (
     <Wrapper>
@@ -152,7 +151,7 @@ const AddBookPage = () => {
                 type="number"
                 name="numberInStock"
                 placeholder="Available in stock"
-                min="0"
+                min="1"
                 onChange={(e) => setNumberInStock(e.target.value)}
               />
 

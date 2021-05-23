@@ -13,7 +13,8 @@ import {
 import Loading from "./Loading";
 import axios from "axios";
 
-const BookOperations = ({ book }) => {
+const BookOperations = (single_book) => {
+  let { book } = single_book;
   while (book === undefined) {
     return <Loading />;
   }
@@ -37,7 +38,7 @@ const BookOperations = ({ book }) => {
         <button className="heart">
           <FaRegHeart size={18} />
         </button>
-        <Link to="/editBook" type="button" className="btn">
+        <Link to={`/editBook/${id}`} type="button" className="btn">
           <FaEdit size={18} />
         </Link>
         <button className="btn" onClick={() => handleDelete(id)}>

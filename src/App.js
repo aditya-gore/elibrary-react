@@ -60,9 +60,10 @@ function App() {
         <Route exact path="/addbook">
           <AddBook />
         </Route>
-        <Route exact path="/editbook">
+        <Route exact path={"/editbook/:id"}>
           <EditBook />
         </Route>
+
         <Route exact path="/addreader">
           <AddReader />
         </Route>
