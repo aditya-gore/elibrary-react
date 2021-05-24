@@ -19,7 +19,7 @@ const PageHero = ({ name, book, addBook = false }) => {
 const Wrapper = styled.section`
   background: var(--clr-primary-10);
   width: 100%;
-  min-height: 4vh;
+  min-height: 9vh;
   display: flex;
   align-items: center;
 

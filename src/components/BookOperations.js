@@ -20,14 +20,37 @@ const BookOperations = (single_book) => {
   }
   const { id } = book;
 
+  const deleteAlert = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      console.log(result);
+      if (result.value) {
+        handleDelete(id);
+      }
+    });
+  };
+
   const handleDelete = async (id) => {
-    const result = await axios.delete("delete/" + id);
-    if (result.status === 200) {
-      Swal.fire("Book deleted successfully!", "success").then(function () {
-        window.location.replace("/books");
-      });
+    let res = await axios.delete("delete/" + id);
+    if (res.status === 200) {
+      Swal.fire("Deleted!", "Book has been deleted.", "success").then(
+        function () {
+          window.location.replace(`/books`);
+        }
+      );
     } else {
-      Swal.fire("Book could not get deleted", "Error", "warning");
+      Swal.fire(
+        "Something went wrong!",
+        "Book could not get deleted.",
+        "error"
+      );
     }
   };
 
@@ -41,7 +64,7 @@ const BookOperations = (single_book) => {
         <Link to={`/editBook/${id}`} type="button" className="btn">
           <FaEdit size={18} />
         </Link>
-        <button className="btn" onClick={() => handleDelete(id)}>
+        <button className="btn" onClick={() => deleteAlert(id)}>
           <FaRegTrashAlt size={18} />
         </button>
       </div>

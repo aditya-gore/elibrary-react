@@ -94,7 +94,13 @@ const EditBookPage = (props) => {
     formData.append("numberInStock", numberInStock);
     const result = await axios.post(`saveBook/${id}`, formData);
     if (result.status === 200) {
-      Swal.fire("Changes saved successfully!", "", "success").then(function () {
+      Swal.fire({
+        position: "center",
+        type: "success",
+        title: "Changes saved successfully!",
+        showConfirmButton: false,
+        timer: 2000,
+      }).then(function () {
         window.location.replace(`/books/${id}`);
       });
     } else {

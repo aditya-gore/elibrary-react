@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 import { PageHero } from "../components";
+import Swal from "sweetalert2";
 
 const AddBookPage = () => {
   const fileInputRef = useRef();
@@ -50,8 +51,11 @@ const AddBookPage = () => {
     setRedirect(true);
   };
   if (redirect) {
-    window.location.replace("/books");
+    Swal.fire(`${title}`, "Added Successfully!", "success").then(function () {
+      window.location.replace("/books");
+    });
   }
+
   return (
     <Wrapper>
       <PageHero name="add book" addBook={true} />

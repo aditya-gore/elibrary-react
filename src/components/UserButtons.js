@@ -13,7 +13,7 @@ const UserButtons = ({ user, setLogin }) => {
     await axios.post("logout");
     closeSideBar();
     setLogin();
-    history.push("/");
+    window.location.replace("/");
   };
   return (
     <Wrapper className="cart-btn-wrapper">

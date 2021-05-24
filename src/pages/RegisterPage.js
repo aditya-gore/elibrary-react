@@ -3,6 +3,10 @@ import { PageHero } from "../components";
 import styled from "styled-components";
 import axios from "axios";
 import { Redirect } from "react-router";
+import Swal from "sweetalert2";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { registerSchema } from "../validations/UserValidation";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
@@ -12,16 +16,31 @@ const RegisterPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(registerSchema),
+  });
+
+  const submit = async (e) => {
     e.preventDefault();
-    await axios.post("register", {
+    console.log("clicked!");
+    const result = await axios.post("register", {
       name: name,
       email: email,
       isAdmin: isAdmin,
       password: password,
       confirm_password: confirmPassword,
     });
-    setRedirect(true);
+    if (result.status === 201) {
+      Swal.fire(
+        "Registered! Please verify your email.",
+        "Email verification link has been sent to your inbox",
+        "success"
+      ).then(setRedirect(true));
+    }
   };
 
   if (redirect) {
@@ -33,51 +52,54 @@ const RegisterPage = () => {
       <PageHero name="register" />
 
       <Wrapper className="page">
-        <form className="form" onSubmit={handleSubmit}>
+        <form className="form" onSubmit={handleSubmit(submit)}>
           <h1>Register</h1>
-          <p>
-            <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              name="name"
-              placeholder="Name"
-              required
-              onChange={(e) => setName(e.target.value)}
-            />
-          </p>
-          <p>
-            <label htmlFor="email">Email</label>
-            <input
-              type="text"
-              name="email"
-              placeholder="Email"
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </p>
-          <p>
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              required
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </p>
-          <p>
-            <label htmlFor="confirm_password">Confirm Password</label>
-            <input
-              type="password"
-              name="confirm_password"
-              placeholder="Confirm Password"
-              required
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-          </p>
-          <p>
-            <button type="submit">Register</button>
-          </p>
+
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            {...register("name", { required: true })}
+            onChange={(e) => setName(e.target.value)}
+          />
+
+          <p>{errors?.name?.message}</p>
+
+          <label htmlFor="email">Email</label>
+          <input
+            type="text"
+            name="email"
+            placeholder="Email"
+            {...register("email", { required: true })}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <p>{errors?.email?.message}</p>
+
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            {...register("password", { required: true })}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          <p>{errors?.password?.message}</p>
+
+          <label htmlFor="confirm_password">Confirm Password</label>
+          <input
+            type="password"
+            name="confirm_password"
+            placeholder="Confirm Password"
+            {...register("confirm_password", { required: true })}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+
+          <p>{errors?.confirm_password && "Passwords should match"}</p>
+
+          <button type="submit">Register</button>
         </form>
       </Wrapper>
     </main>
@@ -101,6 +123,10 @@ const Wrapper = styled.section`
     font-size: 22px;
     padding-bottom: 20px;
     text-align: center;
+  }
+  .form p {
+    font-family: "Raleway", "Lato", Arial, sans-serif;
+    color: --clr-primary-1;
   }
 
   .form input[type="text"],

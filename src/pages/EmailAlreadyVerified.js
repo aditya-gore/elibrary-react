@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import styled from "styled-components";
 import { PageHero } from "../components";
+import Swal from "sweetalert2";
 
 const EmailAlreadyVerified = ({ setLogin }) => {
   const [email, setEmail] = useState("");
@@ -11,12 +12,18 @@ const EmailAlreadyVerified = ({ setLogin }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("login", {
-      email,
-      password,
-    });
-    setRedirect(true);
-    setLogin();
+    try {
+      await axios.post("login", {
+        email,
+        password,
+      });
+      setLogin();
+      window.location.replace("/books");
+    } catch (error) {
+      if (error.response.status === 401) {
+        Swal.fire("Falied", `${error.response.data.error}`, "error");
+      }
+    }
   };
   if (redirect) {
     return <Redirect to="/books" />;
