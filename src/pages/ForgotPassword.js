@@ -2,61 +2,58 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { PageHero } from "../components";
 import axios from "axios";
+import * as yup from "yup";
+import Swal from "sweetalert2";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const ForgotPassword = () => {
-  const [email, setEmail] = useState("");
-  const [notify, setNotify] = useState({
-    show: false,
-    error: false,
-    message: "",
+  const emailSchema = yup.object().shape({
+    email: yup.string().email().required(),
   });
-  const submit = async (e) => {
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(emailSchema),
+  });
+
+  const [email, setEmail] = useState("");
+
+  const onSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await axios.post("forgot", { email });
-      setNotify({
-        show: true,
-        error: false,
-        message: "Email was sent!",
-      });
-    } catch (error) {
-      setNotify({
-        show: true,
-        error: true,
-        message: "Email not found!",
-      });
-    }
+    console.log("clicked");
+    // try {
+    //   await axios.post("forgot", { email });
+    //   Swal.fire({
+    //     position: "center",
+    //     type: "success",
+    //     title: "Password reset link has been sent to your email.",
+    //     showConfirmButton: false,
+    //     timer: 2000,
+    //   });
+    // } catch (error) {
+    //   Swal.fire("Falied", `${error.response.data.error}`, "error");
+    // }
   };
-  let info;
-  if (notify.show) {
-    info = (
-      <div
-        className={notify.error ? "alert alert-danger" : "alert alert-success"}
-        role="alert"
-      >
-        {notify.message}
-      </div>
-    );
-  }
   return (
     <main>
       <PageHero name="forgot password" />
       <Wrapper className="page">
-        <form className="form" onSubmit={submit}>
-          {info}
+        <form className="form" onSubmit={handleSubmit(onSubmit)}>
           <h1>Enter your email...</h1>
-          <p>
-            <input
-              type="text"
-              name="login"
-              placeholder="Email"
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </p>
-          <p>
-            <button type="submit">Send Email</button>
-          </p>
+          <input
+            type="text"
+            name="email"
+            placeholder="Email"
+            {...register("email")}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <p>{errors?.email?.message}</p>
+
+          <button type="submit">Send Email</button>
         </form>
       </Wrapper>
     </main>
@@ -81,6 +78,10 @@ const Wrapper = styled.section`
     font-size: 22px;
     padding-bottom: 20px;
     text-align: center;
+  }
+  .form p {
+    font-family: "Raleway", "Lato", Arial, sans-serif;
+    color: #ff5c33;
   }
 
   .form input[type="text"],

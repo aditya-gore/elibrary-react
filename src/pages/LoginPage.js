@@ -4,14 +4,30 @@ import { Link, Redirect } from "react-router-dom";
 import styled from "styled-components";
 import { PageHero } from "../components";
 import Swal from "sweetalert2";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const LoginPage = ({ setLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const loginSchema = yup.object().shape({
+    email: yup.string().email().required(),
+    password: yup.string().min(4).max(12).required(),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "onBlur",
+    resolver: yupResolver(loginSchema),
+  });
+
+  const submit = async () => {
     try {
       await axios.post("login", {
         email,
@@ -33,34 +49,34 @@ const LoginPage = ({ setLogin }) => {
       <PageHero name="login" />
 
       <Wrapper className="page">
-        <form className="form" onSubmit={handleSubmit}>
+        <form className="form" onSubmit={handleSubmit(submit)}>
           <h1>Login</h1>
-          <p>
-            <label htmlFor="login">Email</label>
-            <input
-              type="text"
-              name="login"
-              placeholder="Email"
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </p>
-          <p>
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              required
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </p>
-          <div>
-            <Link to="/forgotPassword">Forgot Password?</Link>
-          </div>
-          <p>
-            <button type="submit">Login</button>
-          </p>
+
+          <label htmlFor="login">Email</label>
+          <input
+            type="text"
+            name="login"
+            placeholder="Email"
+            {...register("email", { required: true })}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <p>{errors?.email?.message}</p>
+
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            {...register("password", { required: true })}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          <p>{errors?.password?.message}</p>
+
+          <Link to="/forgotPassword">Forgot Password?</Link>
+
+          <button type="submit">Login</button>
         </form>
       </Wrapper>
     </main>
@@ -80,7 +96,10 @@ const Wrapper = styled.section`
     color: black;
     text-shadow: 0 2px 1px rgba(0, 0, 0, 0.3);
   }
-
+  .form p {
+    font-family: "Raleway", "Lato", Arial, sans-serif;
+    color: #ff5c33;
+  }
   .form h1 {
     font-size: 22px;
     padding-bottom: 20px;

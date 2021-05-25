@@ -87,6 +87,10 @@ const Wrapper = styled.section`
     padding-bottom: 20px;
     text-align: center;
   }
+  .form p {
+    font-family: "Raleway", "Lato", Arial, sans-serif;
+    color: #ff5c33;
+  }
 
   .form input[type="text"],
   .form input[type="password"] {
